@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/employees/{userId}/address")
+@RequestMapping("/users/{userId}/address")
 @Validated //needed for validations of path var n req params
 @SecurityRequirement(name = "Aqualeaf")
 public class AddressController {
@@ -37,45 +37,41 @@ public class AddressController {
 		System.out.println("in ctor of " + getClass());
 	}
 
-	// assign address to emp
-	// http://host:port/employees/{userId}/address , method=POST
+	// assign address to user
+	// http://host:port/users/{userId}/address , method=POST
 	@PostMapping
-	@Operation(summary = "Assign Employee Address")
-	public ResponseEntity<?> assignEmpAddress(@PathVariable @NotNull Long userId,
+	public ResponseEntity<?> assignUserAddress(@PathVariable @NotNull Long userId,
 			@RequestBody @Valid AddressDTO address) {
 		System.out.println("in assign adr " + userId + " " + address);
-		return ResponseEntity.status(HttpStatus.CREATED).body(adrService.assignEmpAddress(userId, address));
+		return ResponseEntity.status(HttpStatus.CREATED).body(adrService.assignUserAddress(userId, address));
 	}
 
-	// get emp address
-	// http://host:port/employees/{userId}/address method=GET
+	// get user address
+	// http://host:port/users/{userId}/address method=GET
 	@GetMapping
-	@Operation(summary = "Get employee address")
-	public ResponseEntity<?> getEmpAddress(@PathVariable Long userId) {
-		System.out.println("in get emp adr " + userId);
+	public ResponseEntity<?> getUserAddress(@PathVariable Long userId) {
+		System.out.println("in get user adr " + userId);
 		// one to one with shared PK => emp id is same as adr id
 		return ResponseEntity.ok(adrService.getAddressDetails(userId));
 	}
 
 	// update address COMPLETE
-	// http://host:port/employees/{userId}/address , method=PUT
+	// http://host:port/users/{userId}/address , method=PUT
 	@PutMapping
-	@Operation(summary = "Complete updation of employee address")
-	public ResponseEntity<?> updateEmpAddress(@PathVariable @NotNull Long userId,
+	public ResponseEntity<?> updateUserAddress(@PathVariable @NotNull Long userId,
 			@RequestBody @Valid AddressDTO address) {
 		System.out.println("in complete update adr " + userId + " " + address);
 		return ResponseEntity.ok()
-				.body(adrService.updateEmpAddress(userId, address));
+				.body(adrService.updateUserAddress(userId, address));
 	}
 
 	// update address partial
-	// http://host:port/employees/{userId}/address , method=PATCH
+	// http://host:port/users/{userId}/address , method=PATCH
 	@PatchMapping
-	@Operation(summary = "Partial updation of employee address")
-	public ResponseEntity<?> updateEmpAddressPartial(@PathVariable @NotNull Long userId,
+	public ResponseEntity<?> updateUserAddressPartial(@PathVariable @NotNull Long userId,
 			@RequestBody Map<String, Object> map) throws Exception{
 		System.out.println("in partial update adr " + userId + " " + map);
 		return ResponseEntity.ok()
-				.body(adrService.patchEmpAddress(userId, map));
+				.body(adrService.patchUserAddress(userId, map));
 	}
 }

@@ -38,7 +38,7 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public ApiResponse assignEmpAddress(Long userId, AddressDTO address) {
+	public ApiResponse assignUserAddress(Long userId, AddressDTO address) {
 		// validate emp : can be replaced by getReferenceById : a proxy
 		User user = userDao.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid Emp ID!!!"));
@@ -52,7 +52,7 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public ApiResponse updateEmpAddress(Long userId, AddressDTO address) {
+	public ApiResponse updateUserAddress(Long userId, AddressDTO address) {
 		Address addressEntity = adrRepo.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("Address is not yet assigned !!!! "));
 	
@@ -64,7 +64,7 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public AddressDTO patchEmpAddress(Long userId, Map<String, Object> map) {
+	public AddressDTO patchUserAddress(Long userId, Map<String, Object> map) {
 		// chk if adr exists
 		Address address = adrRepo.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid Address Id!!!!"));

@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public SignUpDTO userRegistration(SignUpDTO reqDTO) {
 		User user=mapper.map(reqDTO, User.class);
-		user.setType(UserType.ADMIN);
+		user.setType(UserType.USER);
 		Cart cart = new Cart();
 		user.setCart(cart);
 		user.setPassword(encoder.encode(user.getPassword()));//pwd : encrypted using SHA
